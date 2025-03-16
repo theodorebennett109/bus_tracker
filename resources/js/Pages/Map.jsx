@@ -81,10 +81,12 @@ const Map = () => {
     const fetchBusLocation = async () => {
       try {
         const res = await axios.get(
-          "https://vq1kjn83jl.execute-api.us-east-1.amazonaws.com/prod/getLocationById/1"
+          "bus-location/1"
         );
         const { latitude, longitude } = res.data;
         setBusLocation({ lat: latitude, lng: longitude });
+        console.log(latitude);
+
       } catch (error) {
         console.error("Error fetching bus location:", error);
       }
