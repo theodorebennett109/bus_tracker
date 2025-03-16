@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,12 +14,23 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
+Route::get('/bus-location/{busId}', function ($busId) {
+    $apiUrl = "https://vq1kjn83jl.execute-api.us-east-1.amazonaws.com/prod/getLocationById/{$busId}";
 
-Route::get('/', function () {
-        return Inertia::render('Map');
-}
-);
+    $response = Http::get($apiUrl);
 
+    if ($response->successful()) {
+        return response()->json($response->json(), 200);
+    }
+
+    return response()->json(['error' => 'Bus location not found'], 404);
+});
+
+
+
+Route::get('/', function (){
+    return Inertia::render('Map');
+});
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
