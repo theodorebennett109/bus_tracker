@@ -14,7 +14,7 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::get('/bus-location/{busId}', function ($busId) {
+Route::get('bus-location/{busId}', function ($busId) {
     $apiUrl = "https://vq1kjn83jl.execute-api.us-east-1.amazonaws.com/prod/getLocationById/{$busId}";
 
     $response = Http::get($apiUrl);
